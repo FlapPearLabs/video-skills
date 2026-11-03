@@ -1,0 +1,50 @@
+{
+  "version": "0.1.1",
+  "format": "collection-of-single-skill-zips",
+  "static_package_validation": "passed",
+  "workbuddy_import": "not_tested",
+  "reference_runtime_loading": "not_tested",
+  "libtv_live_integration": "not_tested",
+  "sources": [
+    "https://open.workbuddy.cn/docs/skill",
+    "https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Skills-Market"
+  ],
+  "skills": [
+    {
+      "name": "video-setup",
+      "file": "video-setup-v0.1.1.zip",
+      "entries": 7,
+      "sha256": "5d7135205d80c7da6d892e2f96035f9226e2751c8528d88816e742b9c1e66607"
+    },
+    {
+      "name": "video-grill",
+      "file": "video-grill-v0.1.1.zip",
+      "entries": 4,
+      "sha256": "3cf62bf60b5dd5484758aca56ca57b003f01e5a8f9a7e113167556a24db33899"
+    },
+    {
+      "name": "video-to-spec",
+      "file": "video-to-spec-v0.1.1.zip",
+      "entries": 5,
+      "sha256": "6cd89c50180f2b6d458f75ced1610167978360fbf9fed3f355f5babcc82fef84"
+    },
+    {
+      "name": "video-to-tickets",
+      "file": "video-to-tickets-v0.1.1.zip",
+      "entries": 4,
+      "sha256": "ee6d3f965fdfffa7acc9c5383397148c7ba1c64d7ffdee2d44fd854af10ca791"
+    },
+    {
+      "name": "video-implement",
+      "file": "video-implement-v0.1.1.zip",
+      "entries": 7,
+      "sha256": "1904923d4b59d080aab17cb471506bcd099ad03e819e29d2dd0bcd9b60bf0e04"
+    },
+    {
+      "name": "video-diagnose",
+      "file": "video-diagnose-v0.1.1.zip",
+      "entries": 4,
+      "sha256": "a477e77fe7adbaf51275589b858309e24bfc7210f061b88461a5073ced4dd6cd"
+    }
+  ]
+}

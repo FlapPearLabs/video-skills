@@ -1,0 +1,14 @@
+{
+  "operation_id": "REPLACE_WITH_NEW_OPERATION_ID",
+  "project_id": null,
+  "ticket_id": "S01",
+  "intent": "canvas-edit",
+  "may_charge": false,
+  "cost_upper_bound": 0,
+  "cost_unit": null,
+  "cost_evidence": null,
+  "expected_revision": null,
+  "idempotency_key": "REPLACE_WITH_STABLE_KEY",
+  "request": {},
+  "payload_sha256": "COMPUTE_CANONICAL_REQUEST_SHA256"
+}

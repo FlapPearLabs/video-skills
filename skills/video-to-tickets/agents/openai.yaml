@@ -1,0 +1,13 @@
+interface:
+  display_name: 视频任务拆分
+  short_description: 把制作规格拆成有依赖和验收条件的镜头、音频、剪辑及交付任务
+  default_prompt: 使用 $video-to-tickets 处理当前视频项目，并读取已有记录。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

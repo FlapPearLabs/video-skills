@@ -1,0 +1,13 @@
+interface:
+  display_name: 视频环境检查
+  short_description: 检查视频项目、工具与能力证据，建立可恢复的制作记录并关闭未批准生成
+  default_prompt: 使用 $video-setup 处理当前视频项目，并读取已有记录。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

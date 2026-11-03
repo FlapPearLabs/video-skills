@@ -1,0 +1,13 @@
+interface:
+  display_name: 视频制作规格
+  short_description: 把已确认创意整理为脚本、分镜、人物场景约束与可检查的制作要求
+  default_prompt: 使用 $video-to-spec 处理当前视频项目，并读取已有记录。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

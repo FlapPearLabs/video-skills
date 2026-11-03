@@ -1,0 +1,13 @@
+interface:
+  display_name: 视频创意讨论
+  short_description: 结合真实素材与参考视频讨论创意，用可比较的视觉候选确定制作方向
+  default_prompt: 使用 $video-grill 处理当前视频项目，并读取已有记录。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

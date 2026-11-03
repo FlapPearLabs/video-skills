@@ -1,0 +1,15 @@
+# 本地工程 / 实际用户素材与状态
+**/STATE.json
+**/SPEC.md
+**/TICKETS.md
+**/media/
+**/outputs/
+**/renders/
+**/secrets.json
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store

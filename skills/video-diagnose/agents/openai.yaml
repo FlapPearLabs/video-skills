@@ -1,0 +1,13 @@
+interface:
+  display_name: 视频局部修复
+  short_description: 用画面与声音证据定位问题，修复最小范围并核对相邻镜头和无关产物
+  default_prompt: 使用 $video-diagnose 处理当前视频项目，并读取已有记录。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
