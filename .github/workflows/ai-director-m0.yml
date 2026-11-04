@@ -1,0 +1,24 @@
+name: AI Director M0 tests
+on:
+  push:
+    paths:
+      - 'ai_director/**'
+      - 'skills/video-change-impact-recovery/**'
+      - '.github/workflows/ai-director-m0.yml'
+  pull_request:
+    paths:
+      - 'ai_director/**'
+      - 'skills/video-change-impact-recovery/**'
+      - '.github/workflows/ai-director-m0.yml'
+jobs:
+  safety-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: AI Director state and CLI tests
+        run: node --test ai_director/tests/*.test.mjs
+      - name: Existing Change Impact tests
+        run: python3 -m unittest discover -s skills/video-change-impact-recovery/tests -v

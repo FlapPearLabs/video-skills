@@ -6,6 +6,17 @@
 
 当前版本：**v0.1.1 · WorkBuddy 集成测试版**。六个 Skill 的静态检查与本地测试通过；**尚未验证 WorkBuddy 客户端实际导入、LibTV 真实视频生成、口型修复或商业交付效果**。不要把它当作已完成的全自动视频生产服务。
 
+## AI Director 产品功能 SPEC 与实现（v0.2 / M0）
+
+**当前优先级为产品功能，不制作真实探厂视频内容。**
+
+- [产品功能 SPEC v0.2](docs/AI_DIRECTOR_PRODUCT_SPEC.md)：十三轮 Grill 决策、架构、阶段、验收、P0 阻塞与范围外功能。
+- [M0/M1 联调指南](docs/AI_DIRECTOR_IMPLEMENTATION.md)：外部 Agent + NodeTool MCP 的实测顺序、状态规则与操作边界。
+- [AI Director M0 控制层](ai_director/README.md)：`ai_director/runtime.mjs`，实现工具证据、单写入者、修改快照/范围准入、预算/幂等/未知任务保护与交付证据门禁。无网络、无收费、不会自动剪辑。
+- 测试：`node --test ai_director/tests/runtime.test.mjs`。**离线安全测试不等于 NodeTool 真人工程或视频成片通过。**
+
+后续 M1 先做 NodeTool 工具发现、原生工程读写/恢复、模型适配和可编辑时间线验证；真实轴承探厂成片安排在 M2。旧六个 LibTV / WorkBuddy 核心 Skill 和第七个变更保护 Skill 均保留。
+
 ## 适合什么场景
 
 | 制作场景 | 输入 | 重点 |
