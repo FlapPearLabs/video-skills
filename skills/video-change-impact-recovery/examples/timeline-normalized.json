@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0", "timeline_id": "DEMO_30S", "revision": "example-read-v1",
+  "objects": [
+    {"id":"S01","kind":"shot","shot_id":"S01","start_ms":0,"duration_ms":5000,"asset_ref":"asset://s01-v1","asset_hash":"sha-demo-01","deps":[]},
+    {"id":"S02","kind":"shot","shot_id":"S02","start_ms":5000,"duration_ms":5000,"asset_ref":"asset://s02-v1","asset_hash":"sha-demo-02","deps":[]},
+    {"id":"S03","kind":"shot","shot_id":"S03","start_ms":10000,"duration_ms":5000,"asset_ref":"asset://s03-v1","asset_hash":"sha-demo-03","deps":[]},
+    {"id":"S04","kind":"shot","shot_id":"S04","start_ms":15000,"duration_ms":5000,"asset_ref":"asset://s04-v1","asset_hash":"sha-demo-04","deps":[]},
+    {"id":"S05","kind":"shot","shot_id":"S05","start_ms":20000,"duration_ms":5000,"asset_ref":"asset://s05-v1","asset_hash":"sha-demo-05","deps":[]},
+    {"id":"S06","kind":"shot","shot_id":"S06","start_ms":25000,"duration_ms":5000,"asset_ref":"asset://s06-v1","asset_hash":"sha-demo-06","deps":[]},
+    {"id":"VOICE03","kind":"voice","shot_id":"S03","start_ms":10500,"duration_ms":4000,"asset_ref":"asset://voice03","deps":["S03"],"sync":{"to":"S03","point":"start","offset_ms":500}},
+    {"id":"SUB03","kind":"subtitle","shot_id":"S03","start_ms":10500,"duration_ms":4000,"asset_ref":"subtitle:product-demo","deps":["S03","VOICE03"],"sync":{"to":"VOICE03","point":"start","offset_ms":0}},
+    {"id":"VOICE04","kind":"voice","shot_id":"S04","start_ms":15500,"duration_ms":3500,"asset_ref":"asset://voice04","deps":["S04"],"sync":{"to":"S04","point":"start","offset_ms":500}},
+    {"id":"SUB04","kind":"subtitle","shot_id":"S04","start_ms":15500,"duration_ms":3500,"asset_ref":"subtitle:review","deps":["S04","VOICE04"],"sync":{"to":"VOICE04","point":"start","offset_ms":0}},
+    {"id":"TRANS_03_04","kind":"transition","shot_id":"S03","start_ms":14700,"duration_ms":300,"asset_ref":"preset:crossfade","deps":["S03","S04"],"sync":{"to":"S03","point":"end","offset_ms":-300}},
+    {"id":"BGM","kind":"music","start_ms":0,"duration_ms":30000,"asset_ref":"asset://bgm-30s","deps":[]},
+    {"id":"BGM_HIT_S05","kind":"beat","start_ms":20000,"duration_ms":100,"asset_ref":"cue:hit05","deps":["S05"],"sync":{"to":"S05","point":"start","offset_ms":0}}
+  ]
+}

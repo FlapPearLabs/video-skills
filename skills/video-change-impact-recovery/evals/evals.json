@@ -1,0 +1,8 @@
+{
+  "skill_name": "video-change-impact-recovery",
+  "evals": [
+    {"id": 1, "prompt": "我用 NodeTool 剪了一条 6 镜头 30 秒广告。第三个镜头太普通，重做成推进镜头但保持 5 秒，其余镜头、配音、音乐不变。", "expected_output": "先计划/快照；仅 S03 素材换成候选 take；检查相邻转场、原追踪是否过期与无关素材未改。未看到画面不能声称成片通过。", "files": ["examples/timeline-normalized.json", "examples/intent-replace-s03.json"]},
+    {"id": 2, "prompt": "把第 3 个镜头延长 2 秒，其他镜头别重新生成，配音字幕和音乐高潮自己适配好。", "expected_output": "明确后续主轨+2s和同步锚点+2s，提示 BGM 节拍/尾奏需要试听，缺真实音轨证据时停止提交。", "files": ["examples/timeline-normalized.json", "examples/intent-extend-s03.json"]},
+    {"id": 3, "prompt": "把第三、四镜头的 Crossfade 换成甩镜；别动商品身份和已批准参考图。", "expected_output": "定位边界转场并建立快照，只允许变更相关原生操作和必要镜头手柄；回读、validate、视听检查，变更超范围要阻断。", "files": ["examples/timeline-normalized.json", "examples/intent-transition.json"]}
+  ]
+}

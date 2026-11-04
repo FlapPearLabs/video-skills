@@ -5,6 +5,8 @@ description: "用可重复的画面、声音、时间线或连接器证据诊断
 
 # 视频局部修复
 
+> **NodeTool 工程修改门禁**：凡涉及已有 NodeTool 时间线的镜头、配音、字幕、节奏或转场修改，先运行 [`video-change-impact-recovery`](../video-change-impact-recovery/SKILL.md) 的影响分析与快照流程；在 guard、预算和现场版本检查通过后才允许写入；完成后运行 readback/verify/原生 validate 与真实视听验收。LibTV 原有规则保持不变。
+
 读 [项目约定](references/project-contract.md)、[LibTV 规则](references/libtv.md) 与 [质量规则](references/quality.md)。只处理用户指出的问题和必要依赖，不默认重开整片。
 
 ## 执行

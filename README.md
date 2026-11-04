@@ -30,6 +30,13 @@
 
 简单需求不强迫走完所有阶段；多镜头广告可按 `Setup → Grill → Spec → Tickets → Implement → Diagnose` 工作。
 
+## 新增：NodeTool 局部修改保护（第七个独立 Skill）
+
+- [`video-change-impact-recovery`](skills/video-change-impact-recovery/SKILL.md)：在 NodeTool 中执行已有视频工程的镜头、配音、字幕和转场变更时，先规划影响范围、创建版本快照、限定可修改字段，再进行原生校验、视听验收与必要回滚。
+- 这是 **v0.1 独立扩展**，不替换六个核心 Skill；其离线测试不代表 NodeTool MCP、真实 MP4 或商业质量已通过联调。
+- 本地测试：`cd skills/video-change-impact-recovery && python -m unittest discover -s tests -v`。
+- 安装与证据边界见 [扩展说明](skills/video-change-impact-recovery/README.md) 和 [集成约定](skills/video-change-impact-recovery/references/integration.md)；无需自己剪辑，但涉及新的收费调用或超过原创意范围的修改仍须批准。
+
 ## 安装到 WorkBuddy
 
 > **前提**：WorkBuddy 已安装并有可用的 LibTV 官方连接器。连接器需要使用者自行授权。视频生成是否扣积分，由当前账号、模型、任务与平台计费规则决定。

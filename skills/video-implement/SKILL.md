@@ -5,6 +5,8 @@ description: "执行已确认的视频制作任务，通过 WorkBuddy 的 LibTV 
 
 # 视频制作执行
 
+> **NodeTool 现存工程修订**：必须先取得 [`video-change-impact-recovery`](../video-change-impact-recovery/SKILL.md) 的成功变更计划与真实快照回执。依据现场 NodeTool Schema 执行最小写入，遵守 allowed_fields；新生成资产先保留 candidate take，未通过实际 readback、原生校验和视听验收不得替换 active take。当前 LibTV 路线不变。
+
 先读 [项目约定](references/project-contract.md)、[LibTV 规则](references/libtv.md)、[质量规则](references/quality.md)。本技能不自带 LibTV 客户端；没有相应工具时只能准备本地计划。
 
 ## 执行

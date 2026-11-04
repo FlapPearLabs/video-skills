@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0",
+  "timeline_id": "DEMO_30S",
+  "base_sha256": "784d6494f092eb18cdb7e57dd7132ffbe164f6965daf287cc095a1f6ac9165c4",
+  "intent": {
+    "type": "change_duration",
+    "target": "S03",
+    "new_duration_ms": 7000
+  },
+  "target": "S03",
+  "change_type": "change_duration",
+  "impact_ids": [
+    "S03",
+    "SUB03",
+    "TRANS_03_04",
+    "VOICE03"
+  ],
+  "check_only_ids": [
+    "SUB03",
+    "VOICE03"
+  ],
+  "allowed_fields": {
+    "BGM_HIT_S05": [
+      "start_ms"
+    ],
+    "S03": [
+      "duration_ms"
+    ],
+    "S04": [
+      "start_ms"
+    ],
+    "S05": [
+      "start_ms"
+    ],
+    "S06": [
+      "start_ms"
+    ],
+    "SUB04": [
+      "start_ms"
+    ],
+    "TRANS_03_04": [
+      "start_ms"
+    ],
+    "VOICE04": [
+      "start_ms"
+    ]
+  },
+  "predicted_changes": {
+    "BGM_HIT_S05": [
+      "start_ms"
+    ],
+    "S03": [
+      "duration_ms"
+    ],
+    "S04": [
+      "start_ms"
+    ],
+    "S05": [
+      "start_ms"
+    ],
+    "S06": [
+      "start_ms"
+    ],
+    "SUB04": [
+      "start_ms"
+    ],
+    "TRANS_03_04": [
+      "start_ms"
+    ],
+    "VOICE04": [
+      "start_ms"
+    ]
+  },
+  "candidate": {
+    "schema_version": "1.0",
+    "timeline_id": "DEMO_30S",
+    "revision": "example-read-v1",
+    "objects": [
+      {
+        "id": "S01",
+        "kind": "shot",
+        "shot_id": "S01",
+        "start_ms": 0,
+        "duration_ms": 5000,
+        "asset_ref": "asset://s01-v1",
+        "asset_hash": "sha-demo-01",
+        "deps": []
+      },
+      {
+        "id": "S02",
+        "kind": "shot",
+        "shot_id": "S02",
+        "start_ms": 5000,
+        "duration_ms": 5000,
+        "asset_ref": "asset://s02-v1",
+        "asset_hash": "sha-demo-02",
+        "deps": []
+      },
+      {
+        "id": "S03",
+        "kind": "shot",
+        "shot_id": "S03",
+        "start_ms": 10000,
+        "duration_ms": 7000,
+        "asset_ref": "asset://s03-v1",
+        "asset_hash": "sha-demo-03",
+        "deps": []
+      },
+      {
+        "id": "S04",
+        "kind": "shot",
+        "shot_id": "S04",
+        "start_ms": 17000,
+        "duration_ms": 5000,
+        "asset_ref": "asset://s04-v1",
+        "asset_hash": "sha-demo-04",
+        "deps": []
+      },
+      {
+        "id": "S05",
+        "kind": "shot",
+        "shot_id": "S05",
+        "start_ms": 22000,
+        "duration_ms": 5000,
+        "asset_ref": "asset://s05-v1",
+        "asset_hash": "sha-demo-05",
+        "deps": []
+      },
+      {
+        "id": "S06",
+        "kind": "shot",
+        "shot_id": "S06",
+        "start_ms": 27000,
+        "duration_ms": 5000,
+        "asset_ref": "asset://s06-v1",
+        "asset_hash": "sha-demo-06",
+        "deps": []
+      },
+      {
+        "id": "VOICE03",
+        "kind": "voice",
+        "shot_id": "S03",
+        "start_ms": 10500,
+        "duration_ms": 4000,
+        "asset_ref": "asset://voice03",
+        "deps": [
+          "S03"
+        ],
+        "sync": {
+          "to": "S03",
+          "point": "start",
+          "offset_ms": 500
+        }
+      },
+      {
+        "id": "SUB03",
+        "kind": "subtitle",
+        "shot_id": "S03",
+        "start_ms": 10500,
+        "duration_ms": 4000,
+        "asset_ref": "subtitle:product-demo",
+        "deps": [
+          "S03",
+          "VOICE03"
+        ],
+        "sync": {
+          "to": "VOICE03",
+          "point": "start",
+          "offset_ms": 0
+        }
+      },
+      {
+        "id": "VOICE04",
+        "kind": "voice",
+        "shot_id": "S04",
+        "start_ms": 17500,
+        "duration_ms": 3500,
+        "asset_ref": "asset://voice04",
+        "deps": [
+          "S04"
+        ],
+        "sync": {
+          "to": "S04",
+          "point": "start",
+          "offset_ms": 500
+        }
+      },
+      {
+        "id": "SUB04",
+        "kind": "subtitle",
+        "shot_id": "S04",
+        "start_ms": 17500,
+        "duration_ms": 3500,
+        "asset_ref": "subtitle:review",
+        "deps": [
+          "S04",
+          "VOICE04"
+        ],
+        "sync": {
+          "to": "VOICE04",
+          "point": "start",
+          "offset_ms": 0
+        }
+      },
+      {
+        "id": "TRANS_03_04",
+        "kind": "transition",
+        "shot_id": "S03",
+        "start_ms": 16700,
+        "duration_ms": 300,
+        "asset_ref": "preset:crossfade",
+        "deps": [
+          "S03",
+          "S04"
+        ],
+        "sync": {
+          "to": "S03",
+          "point": "end",
+          "offset_ms": -300
+        }
+      },
+      {
+        "id": "BGM",
+        "kind": "music",
+        "start_ms": 0,
+        "duration_ms": 30000,
+        "asset_ref": "asset://bgm-30s",
+        "deps": []
+      },
+      {
+        "id": "BGM_HIT_S05",
+        "kind": "beat",
+        "start_ms": 22000,
+        "duration_ms": 100,
+        "asset_ref": "cue:hit05",
+        "deps": [
+          "S05"
+        ],
+        "sync": {
+          "to": "S05",
+          "point": "start",
+          "offset_ms": 0
+        }
+      }
+    ]
+  },
+  "blockers": [],
+  "warnings": [
+    "BGM 节拍不因镜头位移自动重排；如有高潮卡点，必须试听或重配节奏",
+    "时长扩展后需检查音乐结尾、字幕时长、镜头边界及导出总时长",
+    "未绑定时间锚点: BGM，不得自动声称同步完成"
+  ],
+  "ready_for_write": true,
+  "safety": {
+    "node_tool_write_performed": false,
+    "media_audited": false,
+    "visual_audio_verified": false
+  }
+}
