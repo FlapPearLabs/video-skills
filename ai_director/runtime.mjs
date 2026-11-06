@@ -6,6 +6,29 @@ function ensure(c,m){if(!c)throw new Error(m);}
 
 function clone(x){return JSON.parse(JSON.stringify(x));}
 
+// Sum decimal amounts without silently losing a small reservation to IEEE-754 rounding.
+function exactMoneySum(...values){
+  const parts=values.map(value=>{
+    ensure(Number.isFinite(value),"invalid budget amount");
+    const m=String(value).match(/^(-?)(\d+)(?:\.(\d+))?(?:e([+-]?\d+))?$/i);
+    ensure(m,"invalid budget amount");
+    const digits=(m[2]+(m[3]||""));
+    const exponent=Number(m[4]||0)-(m[3]||"").length;
+    return {n:BigInt((m[1]||"")+digits), exponent};
+  });
+  const exp=Math.min(0,...parts.map(p=>p.exponent));
+  ensure(exp>=-100&&parts.every(p=>p.exponent-exp<=200),"budget precision unsupported");
+  const total=parts.reduce((a,p)=>a+p.n*10n**BigInt(p.exponent-exp),0n);
+  const value=Number(`${total}e${exp}`);
+  ensure(Number.isFinite(value),"budget precision unsupported");
+  const round=String(value).match(/^(-?)(\d+)(?:\.(\d+))?(?:e([+-]?\d+))?$/i);
+  const rn=BigInt((round[1]||"")+round[2]+(round[3]||""));
+  const re=Number(round[4]||0)-(round[3]||"").length;
+  const common=Math.min(exp,re);
+  ensure(total*10n**BigInt(exp-common)===rn*10n**BigInt(re-common),"budget precision unsupported");
+  return value;
+}
+
 function assertState(s){
   ensure(s&&s.schema_version==="0.1"&&Array.isArray(s.operations)&&s.budget&&s.ai_director,"STATE.json missing schema_version=0.1 / operations / budget / ai_director");
   ensure(typeof s.project_id==="string"&&!!s.project_id.trim(),"project_id missing");
@@ -56,13 +79,14 @@ function prepareOperation(s,r){
     ensure(b.approved_by&&b.user_evidence&&b.unit&&r.cost_unit===b.unit,"cost approval/unit missing");
     ensure(Array.isArray(b.allowed_ticket_ids)&&b.allowed_ticket_ids.includes(r.ticket_id),"ticket not authorized");
     ensure(Number.isFinite(r.cost_upper_bound)&&r.cost_upper_bound>=0,"known cost upper bound required");
-    ensure([b.limit,b.spent,b.reserved].every(x=>Number.isFinite(x)&&x>=0)&&b.spent+b.reserved+r.cost_upper_bound<=b.limit,"budget limit exceeded or invalid budget");
+    ensure([b.limit,b.spent,b.reserved].every(x=>Number.isFinite(x)&&x>=0),"budget limit exceeded or invalid budget");
+    ensure(exactMoneySum(b.spent,b.reserved,r.cost_upper_bound)<=b.limit,"budget limit exceeded");
     if(["generate","render"].includes(r.mode))ensure(Number.isSafeInteger(b.max_generation_calls)&&b.max_generation_calls>=0&&Number.isSafeInteger(b.generation_calls_used)&&b.generation_calls_used>=0&&b.generation_calls_used<b.max_generation_calls,"call cap exceeded or invalid call count");
     reservation=r.cost_upper_bound;
   }
   const n=clone(s);
   n.ai_director.active_operation_id=r.operation_id;
-  n.budget.reserved=(n.budget.reserved||0)+reservation;
+  if(r.may_charge)n.budget.reserved=exactMoneySum(n.budget.reserved,reservation);
   const counts=!!(r.may_charge&&["generate","render"].includes(r.mode));
   if(counts)n.budget.generation_calls_used++;
   n.operations.push({
@@ -88,14 +112,16 @@ function recordOperation(s,e){
   if(["succeeded","failed"].includes(e.status)&&op.may_charge&&e.settlement_evidence)ensure(Number.isFinite(e.actual_cost)&&e.actual_cost>=0&&e.actual_cost<=op.cost_upper_bound,"invalid settled cost; manual reconciliation required");
   op.status=e.status;op.receipt_ref=e.receipt_ref||op.receipt_ref;op.task_id=e.task_id||op.task_id;
   if(e.status==="cancelled"){
-    n.budget.reserved-=op.cost_upper_bound;
+    ensure(Number.isFinite(n.budget.reserved)&&n.budget.reserved>=op.cost_upper_bound,"invalid reserved balance");
+    n.budget.reserved=exactMoneySum(n.budget.reserved,-op.cost_upper_bound);
     if(op.counts_as_attempt)n.budget.generation_calls_used--;
     op.counts_as_attempt=false;op.submission_status="not_sent";op.cancellation_evidence=e.cancellation_evidence;
     n.ai_director.active_operation_id=null;
   }else if(["succeeded","failed"].includes(e.status)){
     if(op.may_charge){
       if(e.settlement_evidence){
-        n.budget.reserved-=op.cost_upper_bound;n.budget.spent+=e.actual_cost;
+        ensure(Number.isFinite(n.budget.reserved)&&n.budget.reserved>=op.cost_upper_bound&&Number.isFinite(n.budget.spent)&&n.budget.spent>=0,"invalid reserved balance");
+        n.budget.reserved=exactMoneySum(n.budget.reserved,-op.cost_upper_bound);n.budget.spent=exactMoneySum(n.budget.spent,e.actual_cost);
         op.actual_cost=e.actual_cost;op.settlement_evidence=e.settlement_evidence;op.settlement="settled";
       }else op.settlement="pending";
     }

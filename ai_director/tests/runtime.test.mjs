@@ -78,6 +78,19 @@ test('negative budget balances and call counts cannot create spending capacity',
     assert.throws(()=>prepareOperation(s,paid()),/invalid call count/);
   }
 });
+test('decimal reservations cannot disappear through floating-point rounding',()=>{
+  const s=state();s.budget.limit=1e16;s.budget.spent=1e16;
+  assert.throws(()=>prepareOperation(s,{...paid(),cost_upper_bound:1}),/precision|budget limit/);
+  const d=state();d.budget.limit=1;d.budget.spent=0.1;d.budget.reserved=0.2;
+  const p=prepareOperation(d,{...paid(),cost_upper_bound:0.3});
+  assert.equal(p.budget.reserved,0.5);
+});
+test('settlement rejects an inconsistent reserved balance',()=>{
+  const p=prepareOperation(state(),paid());
+  const a=recordOperation(p,{operation_id:'op-fee',status:'submitted',receipt_ref:'submitted'});
+  a.budget.reserved=0;
+  assert.throws(()=>recordOperation(a,{operation_id:'op-fee',status:'succeeded',receipt_ref:'done',settlement_evidence:'invoice',actual_cost:4}),/invalid reserved/);
+});
 test('unknown submission retains lock and budget reservation',()=>{
   const p=prepareOperation(state(),paid());
   const u=recordOperation(p,{operation_id:'op-fee',status:'unknown'});
