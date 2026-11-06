@@ -68,6 +68,16 @@ test('budget limit and call cap are enforced',()=>{
   const c=state();c.budget.generation_calls_used=2;
   assert.throws(()=>prepareOperation(c,paid()),/call cap/);
 });
+test('negative budget balances and call counts cannot create spending capacity',()=>{
+  for (const field of ['limit','spent','reserved']) {
+    const s=state(); s.budget[field]=-1;
+    assert.throws(()=>prepareOperation(s,paid()),/invalid budget/);
+  }
+  for (const field of ['max_generation_calls','generation_calls_used']) {
+    const s=state(); s.budget[field]=-1;
+    assert.throws(()=>prepareOperation(s,paid()),/invalid call count/);
+  }
+});
 test('unknown submission retains lock and budget reservation',()=>{
   const p=prepareOperation(state(),paid());
   const u=recordOperation(p,{operation_id:'op-fee',status:'unknown'});

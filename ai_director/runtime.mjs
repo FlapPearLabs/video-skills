@@ -56,8 +56,8 @@ function prepareOperation(s,r){
     ensure(b.approved_by&&b.user_evidence&&b.unit&&r.cost_unit===b.unit,"cost approval/unit missing");
     ensure(Array.isArray(b.allowed_ticket_ids)&&b.allowed_ticket_ids.includes(r.ticket_id),"ticket not authorized");
     ensure(Number.isFinite(r.cost_upper_bound)&&r.cost_upper_bound>=0,"known cost upper bound required");
-    ensure([b.limit,b.spent,b.reserved].every(Number.isFinite)&&b.spent+b.reserved+r.cost_upper_bound<=b.limit,"budget limit exceeded");
-    if(["generate","render"].includes(r.mode))ensure(Number.isInteger(b.max_generation_calls)&&Number.isInteger(b.generation_calls_used)&&b.generation_calls_used<b.max_generation_calls,"call cap exceeded");
+    ensure([b.limit,b.spent,b.reserved].every(x=>Number.isFinite(x)&&x>=0)&&b.spent+b.reserved+r.cost_upper_bound<=b.limit,"budget limit exceeded or invalid budget");
+    if(["generate","render"].includes(r.mode))ensure(Number.isSafeInteger(b.max_generation_calls)&&b.max_generation_calls>=0&&Number.isSafeInteger(b.generation_calls_used)&&b.generation_calls_used>=0&&b.generation_calls_used<b.max_generation_calls,"call cap exceeded or invalid call count");
     reservation=r.cost_upper_bound;
   }
   const n=clone(s);
