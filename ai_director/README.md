@@ -2,6 +2,8 @@
 
 本目录是 Video-Skills 的产品功能实验区，**不是已完成的 NodeTool 导演工作站**。
 
+`nodetool-read.mjs` 提供受限的只读 MCP 客户端适配：接收已连接的 MCP client，使用 `discover()` 获取现场 `execute_code` Schema 和时间线能力签名，使用 `getTimeline(id)` 回读时间线。调用方负责建立和关闭客户端；该模块不管理凭据，不暴露生成或写操作。返回的能力签名本身不构成调用成功证据，也不会自动升级 M0 的 observed 状态。NodeTool 0.8.10 的真实服务已用于只读发现和读取测试。参见 [M1 联调观察](../docs/AI_DIRECTOR_M1_OBSERVATIONS.md)。
+
 - `runtime.mjs`：不访问网络的状态与权限门禁；复用项目 `STATE.json` 的预算与操作记录。
 - `tests/runtime.test.mjs`：合成状态安全回归测试。
 - 产品规范：[`docs/AI_DIRECTOR_PRODUCT_SPEC.md`](../docs/AI_DIRECTOR_PRODUCT_SPEC.md)
